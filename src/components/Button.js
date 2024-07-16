@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, addItemQuantityCart } from "../store/cart/cartAction";
+import { useDispatch } from "react-redux";
+import { addCart } from "../store/cart/cartAction";
 
 const Button = (props) => {
-  const { method, disabled, product, quantity } = props;
-
+  const { method, disabled, prod, quantity } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Handle click base on method
   const handleClick = (method) => {
     if (method === "browse") {
       return navigate("/shop");
     }
-    if (method === "ADD_ITEM_CART") {
-      const newData = { ...product };
-      delete newData.page;
-      dispatch(addToCart(newData));
+    //For POP UP in Homepage, default quantity is 1
+    if (method === "ADD_TO_CART") {
+      dispatch(addCart(prod, 1));
     }
+    //For Detail Page, customized quantity
     if (method === "ADD_ITEM_QUAN") {
-      dispatch(addItemQuantityCart(product, quantity));
+      dispatch(addCart(prod, quantity));
     }
   };
   return (

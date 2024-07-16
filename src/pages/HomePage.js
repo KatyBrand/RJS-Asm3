@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import Banner from "../components/Banner";
-import Categories from "../components/Categories";
-import ProductList from "../components/ProductList";
-import Information from "../components/Information";
-import Popup from "../components/Popup";
-
+import React from "react";
 import { useSelector } from "react-redux";
+import Banner from "../components/HomePage/Banner";
+import Categories from "../components/HomePage/Categories";
+import ProductList from "../components/HomePage/ProductList";
+import Information from "../components/HomePage/Information";
+import Popup from "../components/HomePage/Popup";
 
 const Homepage = () => {
+  //Get state from Redux
   const productData = useSelector((state) => state.shop.products);
-
-  //Use Redux to store isShowPopUp state + data
   const isPopUp = useSelector((state) => state.productModal.showPopUp);
   const productShown = useSelector((state) => state.productModal.productShown);
 
@@ -20,7 +18,7 @@ const Homepage = () => {
       <Categories />
       <ProductList productData={productData} />
       <Information />
-      {isPopUp && <Popup product={productShown} />}
+      {isPopUp && <Popup prod={productShown} />}
     </>
   );
 };

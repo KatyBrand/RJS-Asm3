@@ -23,22 +23,23 @@ code {
 }
 
 header {
-  margin: 18px;
-  height: 32px;
+  padding: 18px 32px;
+}
+ul {
+  margin-bottom: 0;
 }
 main {
-  /* background-color: bisque; */
   font-style: italic;
-  padding: 18px;
-  margin: 18px;
+  margin-left: 32px;
+  margin-right: 32px;
 }
 footer {
+  padding: 18px 32px;
+  margin-top: 5vh;
+  justify-items: center;
   background-color: #1d1c1c;
-  padding: 52px 12px;
-  /* padding-left: 200px; */
   color: white;
   font-style: italic;
-  /* margin-top: 52px; */
 }
 a {
   color: black;

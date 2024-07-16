@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import classes from "../components/CartPage/CartPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
@@ -12,25 +12,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  updateCartItem,
-  deleteFromCart,
-  updateCartFromLS,
+  deleteCart,
+  updateCart,
+  updateQuantity,
 } from "../store/cart/cartAction";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //Get Cart State
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const userEmail = useSelector((state) => state.auth.userEmail);
+
+  //Get Cart data from localStorage
+  const latestCartState = JSON.parse(localStorage.getItem("latestCartState"));
+  //Get Cart data from Redux
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem(`${userEmail}`));
-    if (userData && isLoggedIn) {
-      dispatch(updateCartFromLS(userData.cartItems));
+    //Update Cart's lastest state from Local Storage
+    if (latestCartState) {
+      dispatch(updateCart(latestCartState.cartItems));
     }
-  }, [userEmail]);
+  }, []);
 
   // Calculate total for each item and sum up all totals
   const subTotal = cartItems.reduce((acc, item) => {
@@ -38,14 +39,18 @@ const CartPage = () => {
     return acc + itemTotal;
   }, 0);
 
-  const handleQuantityChange = (itemId, quantity) => {
-    dispatch(updateCartItem(itemId, quantity));
+  //Update Cart when click Caret < 1 >
+  const handleQuantityChange = (item, quantity) => {
+    dispatch(updateQuantity(item, quantity));
   };
+
+  //Remove Item from Cart
   const handleRemoveItem = (itemId, productName) => {
-    const productNameUC = productName.toUpperCase();
-    const confirm = window.confirm(`Remove ${productNameUC} from the cart?`);
+    const confirm = window.confirm(
+      `Remove ${productName.toUpperCase()} from the cart?`
+    );
     if (confirm) {
-      dispatch(deleteFromCart(itemId));
+      dispatch(deleteCart(itemId));
     }
   };
 
@@ -70,12 +75,14 @@ const CartPage = () => {
               </tr>
             </thead>
             <tbody>
+              {/* Dynamically render cartItems */}
               {cartItems.map((item, i) => (
                 <tr key={i}>
                   <td>
                     <img src={item.img1} alt={item.name} />
                   </td>
                   <td>{item.name}</td>
+                  {/* Change 100000 to 100.000 */}
                   <td>{Number(item.price).toLocaleString("id-ID")} VND</td>
                   <td>
                     <div className={classes.quantityChange}>
@@ -83,10 +90,10 @@ const CartPage = () => {
                         icon={faCaretLeft}
                         className={classes.icon}
                         onClick={() => {
+                          //Set up so user can't choose quantity < 1
                           if (item.quantity === 1) {
                             return;
-                          } else
-                            handleQuantityChange(item.id, item.quantity - 1);
+                          } else handleQuantityChange(item, item.quantity - 1);
                         }}
                       />
                       <div
@@ -98,20 +105,20 @@ const CartPage = () => {
                         icon={faCaretRight}
                         className={classes.icon}
                         onClick={() =>
-                          handleQuantityChange(item.id, item.quantity + 1)
+                          handleQuantityChange(item, item.quantity + 1)
                         }
                       />
                     </div>
                   </td>
                   <td>
-                    {Number(item.price * item.quantity).toLocaleString("id-ID")}{" "}
+                    {Number(item.price * item.quantity).toLocaleString("id-ID")}
                     VND
                   </td>
                   <td>
                     <FontAwesomeIcon
                       icon={faTrashCan}
                       className={classes.icon}
-                      onClick={() => handleRemoveItem(item.id, item.name)}
+                      onClick={() => handleRemoveItem(item._id, item.name)}
                     />
                   </td>
                 </tr>

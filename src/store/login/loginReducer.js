@@ -1,9 +1,9 @@
-// reducers.js
 import { ON_LOGIN, ON_LOGOUT } from "./loginActions";
 
+//Initial State from LS
 const initialState = {
   isLoggedIn: localStorage.getItem("isLoggedIn") === "true",
-  userEmail: JSON.parse(localStorage.getItem("userEmail")),
+  userEmail: JSON.parse(localStorage.getItem("userEmail")) ?? null,
 };
 
 const authReducer = (state = initialState, action) => {

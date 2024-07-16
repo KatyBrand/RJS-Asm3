@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import classes from "../components/ShopPage/ShopPage.module.css";
 
 const ShopPage = () => {
-  //Get data from store
+  //Get data from Redux
   const productData = useSelector((state) => state.shop.products);
 
   return (

@@ -82,11 +82,12 @@ const CheckoutPage = () => {
             </button>
           </form>
         </div>
-        <di className={classes.order}>
+        <div className={classes.order}>
           <h3 style={{ paddingBottom: "18px" }}>YOUR ORDER</h3>
-          {cartItems.map((item) => {
+          {/* Render DATA */}
+          {cartItems.map((item, i) => {
             return (
-              <div className={classes.container}>
+              <div className={classes.container} key={i}>
                 <div style={{ fontWeight: "500" }}>
                   {item.name.slice(0, 20)}
                 </div>
@@ -108,7 +109,7 @@ const CheckoutPage = () => {
               {Number(subTotal).toLocaleString("id-ID")} VND
             </h5>
           </div>
-        </di>
+        </div>
       </div>
     </>
   );

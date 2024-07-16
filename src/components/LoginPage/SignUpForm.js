@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import classes from "./Login.module.css";
 import { checkEmail } from "../../utils/checkEmail";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom/dist";
 
-function SignUpForm({ onSwitchMode }) {
+function SignUpForm() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
     phone: "",
   });
-
+  const navigate = useNavigate();
   const [isTouched, setIsTouched] = useState(false);
   const [accIsExist, setAccExist] = useState(false);
   //Save input
@@ -22,6 +23,7 @@ function SignUpForm({ onSwitchMode }) {
     }));
     setAccExist(false);
   };
+
   //Get UserArr
   const userArrLocalStorage = JSON.parse(localStorage.getItem("userArr"));
   // Check valid input to enable submit button
@@ -34,13 +36,12 @@ function SignUpForm({ onSwitchMode }) {
       password.trim().length > 8 &&
       phone.trim().length > 0;
   }
-
+  //Handle SUBMIT
   const handleSubmit = (e) => {
-    setIsTouched(true);
     e.preventDefault();
-    // New variable to update the lastest data
+    setIsTouched(true);
+    // New variable to update the lastest email data
     const isExist = checkEmail(formData.email);
-
     if (isExist) {
       setAccExist(true);
     } else {
@@ -53,11 +54,12 @@ function SignUpForm({ onSwitchMode }) {
       formData.phone.trim().length > 0;
 
     if (valid && !isExist) {
+      //Valid Input + Email not Exist => Push new User data + Save to LS
       const userArr = userArrLocalStorage ? [...userArrLocalStorage] : [];
       userArr.push(formData);
       localStorage.setItem("userArr", JSON.stringify(userArr));
-      alert("Sign Up successfull!");
-      onSwitchMode();
+      alert("SIGN UP successfull!");
+      navigate("/login");
       // Reset the form after submission
       setFormData({
         fullName: "",
@@ -123,7 +125,7 @@ function SignUpForm({ onSwitchMode }) {
         <div style={{ fontSize: "18px" }}>
           Log in?
           <a
-            onClick={() => onSwitchMode()}
+            onClick={() => navigate("/login")}
             style={{ color: "blue", marginLeft: "8px", cursor: "pointer" }}
           >
             Click

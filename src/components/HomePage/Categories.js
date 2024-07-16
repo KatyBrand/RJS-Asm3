@@ -1,13 +1,14 @@
 import React from "react";
 import classes from "./Banner.module.css";
-import image1 from "../img/product_1.png";
-import image2 from "../img/product_2.png";
-import image3 from "../img/product_3.png";
-import image4 from "../img/product_4.png";
-import image5 from "../img/product_5.png";
+import image1 from "../../img/product_1.png";
+import image2 from "../../img/product_2.png";
+import image3 from "../../img/product_3.png";
+import image4 from "../../img/product_4.png";
+import image5 from "../../img/product_5.png";
 import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
+  //HOMEPAGE category
   const navigate = useNavigate();
   const handleClick = () => {
     return navigate("/shop");

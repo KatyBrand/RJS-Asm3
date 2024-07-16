@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faL } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import classes from "./NavBar.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom/dist";
+import classes from "./NavBar.module.css";
 
 const NavBar = ({ currentUser }) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate("/");
+  //Check to show customized NAV
   const isLoggedIn = useSelector((s) => s.auth.isLoggedIn);
-
+  //LOG OUT
+  const logoutHandler = () => {
+    dispatch({ type: "ON_LOGOUT" });
+    navigate("/");
+  };
   const navLinkStyle = {
     textDecoration: "none",
   };
-
-  const logoutHandler = () => {
-    dispatch({ type: "ON_LOGOUT" });
-    dispatch({ type: "CLEAR_CART_ON_LOG_OUT" });
-  };
-
   return (
     <header className={classes.navbar}>
       <ul>
@@ -80,7 +80,7 @@ const NavBar = ({ currentUser }) => {
         {isLoggedIn && currentUser && (
           <li>
             <NavLink
-              to={"/user"}
+              to={"/checkout"}
               className={({ isActive }) =>
                 isActive ? classes.isActive : classes.isNotActive
               }
@@ -88,19 +88,15 @@ const NavBar = ({ currentUser }) => {
               end
             >
               {currentUser.fullName}
-
               <FontAwesomeIcon icon={faCaretDown} className={classes.icon} />
             </NavLink>
           </li>
         )}
         {isLoggedIn && currentUser && (
           <li>
-            <a
-              className={classes.logout}
-              style={{ cursor: "pointer", textDecoration: "none" }}
-            >
+            <NavLink className={classes.logout}>
               <span onClick={logoutHandler}>(Logout)</span>
-            </a>
+            </NavLink>
           </li>
         )}
       </ul>

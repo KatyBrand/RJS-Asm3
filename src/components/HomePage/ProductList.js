@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classes from "./Banner.module.css";
 import ProductItems from "./ProductItems";
-import Loading from "./Loading";
 import { useSelector } from "react-redux";
 
 const ProductList = () => {
@@ -16,20 +15,8 @@ const ProductList = () => {
       </div>
       <div className={classes.productContainer}>
         {productData.length !== 0 &&
-          productData.map((prod) => {
-            return (
-              <ProductItems
-                page="home"
-                key={Math.random()}
-                id={prod.id}
-                img1={prod.img1}
-                name={prod.name}
-                price={prod.price}
-                category={prod.category}
-                shortDesc={prod.short_desc}
-                longDesc={prod.long_desc}
-              />
-            );
+          productData.map((prod, i) => {
+            return <ProductItems page="home" key={i} prod={prod} />;
           })}
       </div>
     </div>

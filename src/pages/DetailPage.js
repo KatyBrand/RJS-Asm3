@@ -2,59 +2,61 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import Image from "../components/DetailPage/Image";
-import classes from "../components/DetailPage.module.css";
+import classes from "../components/DetailPage/DetailPage.module.css";
 import AddToCart from "../components/DetailPage/AddToCart";
-import ProductItems from "../components/ProductItems";
-import Loading from "../components/Loading";
+import ProductItems from "../components/HomePage/ProductItems";
 
 const DetailPage = () => {
   const [product, setProduct] = useState({});
   const [relatedProduct, setRelatedProduct] = useState([]);
+  // Set up to change product's image when clicking
   const [imgSrc, setImg] = useState(null);
   const params = useParams();
+  // Get data from Redux and LS
   const products = useSelector((state) => state.shop.products);
+  const productsLS = JSON.parse(localStorage.getItem("productArray"));
 
   useEffect(() => {
-    //GET data from redux
+    //Use params (productID) to find the product and related products
     if (products.length !== 0) {
       const productArr = products.filter(
-        (prod) => prod.id === params.productID
+        // prod._id['$oid] to convert id string from mongoDB language
+        (prod) => prod._id["$oid"] === params.productID
       );
       const relatedProd = products.filter(
         (prod) =>
           prod.category === productArr[0].category &&
-          prod.id !== productArr[0].id
+          prod._id["$oid"] !== productArr[0]._id["$oid"]
       );
       setProduct(productArr[0]);
       setRelatedProduct(relatedProd);
-    } else {
+    } else if (productsLS) {
       //No redux, GET data from Local Storage => For No error when RELOADING page
-      const productsLS = JSON.parse(localStorage.getItem("productArray"));
       const productArr = productsLS.filter(
-        (prod) => prod.id === params.productID
+        (prod) => prod._id["$oid"] === params.productID
       );
       const relatedProd = productsLS.filter(
         (prod) =>
           prod.category === productArr[0].category &&
-          prod.id !== productArr[0].id
+          prod._id !== productArr[0]._id
       );
       setProduct(productArr[0]);
       setRelatedProduct(relatedProd);
     }
-    // Smooth scrolling
+    //Smooth scrolling
     window.scrollTo({
       top: "100px",
       behavior: "smooth",
     });
   }, [params]);
-
+  //Convert 100000 to 100.000
   const priceNum = Number(product.price).toLocaleString("id-ID");
-  //Long Desc
   //Break description into lines
   const breakLine = (product) => {
     const longDesc = product.long_desc.split("\n");
     return longDesc;
   };
+
   return (
     <>
       {product && (
@@ -139,17 +141,8 @@ const DetailPage = () => {
               )}
               <div className={classes.prodContainer}>
                 {relatedProduct.length > 0 &&
-                  relatedProduct.map((prod) => {
-                    return (
-                      <ProductItems
-                        id={prod.id}
-                        img1={prod.img1}
-                        name={prod.name}
-                        price={prod.price}
-                        page="category"
-                        key={Math.random()}
-                      />
-                    );
+                  relatedProduct.map((prod, i) => {
+                    return <ProductItems prod={prod} page="category" key={i} />;
                   })}
               </div>
             </div>

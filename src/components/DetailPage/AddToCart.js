@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
-import classes from "../DetailPage.module.css";
+import classes from "./DetailPage.module.css";
 import Button from "../Button";
 
 function AddToCart({ product }) {
-  // console.log(product);
   const [quantity, setQuantity] = useState(1);
 
   // Function to increase the quantity
@@ -18,12 +17,6 @@ function AddToCart({ product }) {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
-  };
-
-  // Function to add the product to the cart
-  const addToCart = () => {
-    // Add logic here to add the product to the cart with the selected quantity
-    console.log(`Added ${quantity} product(s) to the cart.`);
   };
 
   return (
@@ -50,7 +43,7 @@ function AddToCart({ product }) {
           className={classes.icon}
         />
       </div>
-      <Button method="ADD_ITEM_QUAN" product={product} quantity={quantity}>
+      <Button method="ADD_ITEM_QUAN" prod={product} quantity={quantity}>
         Add to Cart
       </Button>
     </div>

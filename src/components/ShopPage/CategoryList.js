@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryProductList from "./CategoryProductList";
 import classes from "./ShopPage.module.css";
 
 const CategoryList = ({ productData }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: "SHOW_ALL_PROD" });
+  }, []);
+  //Products filtered base on category
   const filteredProducts = useSelector((state) => state.shop.filteredProducts);
 
   const sortProducts = (category) => {
@@ -13,6 +17,7 @@ const CategoryList = ({ productData }) => {
   const showAllProducts = () => {
     dispatch({ type: "SHOW_ALL_PROD" });
   };
+
   return (
     <>
       <div className={classes.categoryList}>

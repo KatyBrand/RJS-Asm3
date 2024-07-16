@@ -1,7 +1,4 @@
-//POP-UP Reducer
-//Save type in variable so it is unique
-import { SHOW_POPUP } from "./popupAction";
-import { HIDE_POPUP } from "./popupAction";
+import { SHOW_POPUP, HIDE_POPUP } from "./popupAction";
 
 const initialState = {
   showPopUp: false,
@@ -13,16 +10,19 @@ const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_POPUP:
       return {
+        ...state,
         showPopUp: true,
         productShown: action.payload,
       };
     case HIDE_POPUP:
       return {
+        ...state,
         showPopUp: false,
-        productShown: state,
+        // productShown: state,
       };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default productReducer;

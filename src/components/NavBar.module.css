@@ -37,6 +37,11 @@ svg {
 span {
   /* display: block; */
 }
+.logout {
+  cursor: "pointer";
+  text-decoration: none;
+  color: black;
+}
 .logout:hover {
   color: red;
 }

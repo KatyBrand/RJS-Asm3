@@ -2,9 +2,10 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import { Container, Row, Col } from "react-bootstrap"; // Import Bootstrap components
 import classes from "./Info.module.css";
-import Button from "./Button";
+import Button from "../Button";
 
 const Information = () => {
+  //Homepage Infor
   return (
     <div className={classes.info}>
       <Container

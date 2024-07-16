@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./ShopPage.module.css";
-import ProductItems from "../ProductItems";
-import Loading from "../Loading";
+import ProductItems from "../HomePage/ProductItems";
 import Pagination from "./Pagination";
 
 const CategoryProductList = ({ data }) => {
@@ -23,22 +22,9 @@ const CategoryProductList = ({ data }) => {
         </div>
         <div className={classes.productList}>
           <div className={classes.productContainer} key={Math.random()}>
-            {/* {isLoading && <Loading />} */}
             {productData.length !== 0 &&
-              productData.map((prod) => {
-                return (
-                  <ProductItems
-                    page="category"
-                    key={Math.random()}
-                    id={prod.id}
-                    img1={prod.img1}
-                    name={prod.name}
-                    price={prod.price}
-                    category={prod.category}
-                    shortDesc={prod.short_desc}
-                    longDesc={prod.long_desc}
-                  />
-                );
+              productData.map((prod, i) => {
+                return <ProductItems page="category" key={i} prod={prod} />;
               })}
           </div>
         </div>

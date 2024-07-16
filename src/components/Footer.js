@@ -1,6 +1,5 @@
 import React from "react";
 import FooterItem from "./FooterItem";
-
 import classes from "./Footer.module.css";
 
 const DUMMY_DATA = [

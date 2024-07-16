@@ -1,6 +1,14 @@
 import React from "react";
+import classes from "../components/LoginPage/Login.module.css";
+import SignUpForm from "../components/LoginPage/SignUpForm";
 
 const RegisterPage = () => {
-  return <h1>RegisterPage</h1>;
+  return (
+    <>
+      <div className={classes.loginContainer}>
+        <SignUpForm />;
+      </div>
+    </>
+  );
 };
 export default RegisterPage;

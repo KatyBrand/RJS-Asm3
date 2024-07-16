@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
@@ -9,8 +9,10 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+//loader() to load main data
 import { fetchData as dataLoader } from "./utils/fetchData";
 
+//Router
 const router = createBrowserRouter([
   {
     path: "/",
