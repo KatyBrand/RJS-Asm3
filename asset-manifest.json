@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/github.io/RJS-Asm3/static/css/main.f7ef3108.css",
+    "main.js": "/github.io/RJS-Asm3/static/js/main.400ad9a7.js",
+    "static/js/592.24f6755b.chunk.js": "/github.io/RJS-Asm3/static/js/592.24f6755b.chunk.js",
+    "static/media/product_2.png": "/github.io/RJS-Asm3/static/media/product_2.1bc52f8922d488cead68.png",
+    "static/media/product_3.png": "/github.io/RJS-Asm3/static/media/product_3.48eda5293a6f605e73f7.png",
+    "static/media/product_4.png": "/github.io/RJS-Asm3/static/media/product_4.6d83c6007d5109b357a8.png",
+    "static/media/product_1.png": "/github.io/RJS-Asm3/static/media/product_1.b24c110a233df54143c8.png",
+    "static/media/product_5.png": "/github.io/RJS-Asm3/static/media/product_5.b963def7555b7544d220.png",
+    "static/media/banner1.jpg": "/github.io/RJS-Asm3/static/media/banner1.4a22881c941f7b645fa8.jpg",
+    "index.html": "/github.io/RJS-Asm3/index.html",
+    "main.f7ef3108.css.map": "/github.io/RJS-Asm3/static/css/main.f7ef3108.css.map",
+    "main.400ad9a7.js.map": "/github.io/RJS-Asm3/static/js/main.400ad9a7.js.map",
+    "592.24f6755b.chunk.js.map": "/github.io/RJS-Asm3/static/js/592.24f6755b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f7ef3108.css",
+    "static/js/main.400ad9a7.js"
+  ]
+}
